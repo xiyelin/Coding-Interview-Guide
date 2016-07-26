@@ -20,6 +20,72 @@
 ```cpp
 	cpp code:
 	
+		# include <iostream>
+		using namespace std;
+		
+		struct ListNode
+		{
+		    int _data;
+		    ListNode* _next;
+		
+		    ListNode(const int x)
+		        :_data(x)
+		        ,_next(NULL)
+		    {}
+		};
+		
+		void Push_Back(ListNode*& head, const int x)
+		{
+		    if (NULL == head)
+		    {
+		        head = new ListNode(x);
+		        return;
+		    }
+		
+		    ListNode* tmp = new ListNode(x);
+		    ListNode* cur = head;
+		
+		    while (cur && cur->_next)
+		        cur = cur->_next;
+		    cur->_next = tmp;
+		}
+		
+		void PrintList(ListNode* head)
+		{
+		    while (head)
+		    {
+		        cout << head->_data << "->";
+		        head = head->_next;
+		    }
+		    cout << "NULL" << endl;
+		}
+		
+		bool JudgePalindromeList(ListNode* head)
+		{
+		    
+		}
+		
+		
+		int main()
+		{
+		    ListNode* head = NULL;
+		    Push_Back(head, 1);
+		    Push_Back(head, 2);
+		    Push_Back(head, 3);
+		    Push_Back(head, 4);
+		    Push_Back(head, 5);
+		
+		    PrintList(head);
+		
+		    cout << JudgePalindromeList(head) << endl;
+		
+		    system("pause");
+		    return 0;
+		}
+
+
+```
+	
 
 
 
