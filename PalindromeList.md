@@ -17,11 +17,16 @@
 
 ### 方法一：
 
+	借助栈stack<int> s来完成判断，我们可以先遍历一遍原来的链表，边遍历边压栈，我们知道栈是先进后出的结构，所以
+	出栈的顺序正好和从头遍历原链表的顺序相反。如果该链表是回文链表，则它们的每个元素都相等，否则，不是回文链表。
+
+
 ```cpp
 	cpp code:
 	
 		# include <iostream>
 		using namespace std;
+		# include <stack>
 		
 		struct ListNode
 		{
@@ -29,8 +34,8 @@
 		    ListNode* _next;
 		
 		    ListNode(const int x)
-		        :_data(x)
-		        ,_next(NULL)
+		        :_data(x)                //数据域
+		        ,_next(NULL)             //指向下一个节点
 		    {}
 		};
 		
@@ -60,9 +65,30 @@
 		    cout << "NULL" << endl;
 		}
 		
-		bool JudgePalindromeList(ListNode* head)
+		bool JudgePalindromeList(ListNode* head)                //判断是否为回文链表
 		{
-		    
+		    stack<int> s;
+		    ListNode* cur = head;
+		
+		    while (cur)
+		    {
+		        s.push(cur->_data);
+		        cur = cur->_next;
+		    }
+		
+		    while (head)
+		    {
+		        int s_data = s.top();
+		        if (head->_data == s_data)
+		        {
+		            s.pop();
+		            head = head->_next;
+		        }
+		        else
+		            return false;
+		    }
+		
+		    return true;
 		}
 		
 		
@@ -72,8 +98,8 @@
 		    Push_Back(head, 1);
 		    Push_Back(head, 2);
 		    Push_Back(head, 3);
-		    Push_Back(head, 4);
-		    Push_Back(head, 5);
+		    Push_Back(head, 2);
+		    Push_Back(head, 1);
 		
 		    PrintList(head);
 		
@@ -82,6 +108,7 @@
 		    system("pause");
 		    return 0;
 		}
+
 
 
 ```
