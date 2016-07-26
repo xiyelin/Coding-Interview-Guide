@@ -131,7 +131,7 @@
 	
 	1.先将链表右半边的指针指向反转，反转后的链表为： 1->2->3<-2<-1 ; 如下图：
 
-![image]()
+![image](http://hbimg.b0.upaiyun.com/e23c8e7e54d22ee91786fc4d8f3cc2a8d370a8d360fd-OjCOKJ_fw658)
 
 	2.我们将leftstart和rightstart同时向中间移动并比较其值是否相等，如果都相等，则是回文链表；
 	
