@@ -144,42 +144,125 @@
 ```cpp
 	cpp code:
 		
+		# include <iostream>
+		using namespace std;
+		
+		struct ListNode
+		{
+		    int _data;
+		    ListNode* _next;
+		
+		    ListNode(const int x)
+		        :_data(x)
+		        , _next(NULL)
+		    {}
+		};
+		
+		void Push_Back(ListNode*& head, const int x)
+		{
+		    if (NULL == head)
+		    {
+		        head = new ListNode(x);
+		        return;
+		    }
+		
+		    ListNode* tmp = new ListNode(x);
+		    ListNode* cur = head;
+		
+		    while (cur && cur->_next)
+		        cur = cur->_next;
+		    cur->_next = tmp;
+		}
+		
+		void PrintList(ListNode* head)
+		{
+		    while (head)
+		    {
+		        cout << head->_data << "->";
+		        head = head->_next;
+		    }
+		    cout << "NULL" << endl;
+		}
+		
+		bool JudgePalindromeList(ListNode*& head)
+		{
+		    if (NULL == head || NULL == head->_next)
+		        return true;
+		
+		    ListNode* head1 = head;
+		    ListNode* head2 = head;
+		
+		    //找到中间节点
+		    while (NULL != head2->_next && NULL != head2->_next->_next)
+		    {
+		        head1 = head1->_next;
+		        head2 = head2->_next->_next;
+		    }
+		    head2 = head1->_next;     //中间节点的下一个节点
+		    head1->_next = NULL;      //中间节点指向NULL
+		
+		    ListNode* head3 = NULL;
+		    while (NULL != head2)     //将链表有半边反转
+		    {
+		        head3 = head2->_next;
+		        head2->_next = head1;
+		        head1 = head2;
+		        head2 = head3;
+		    }
+		
+		    head3 = head1;            //保存最后一个节点
+		    head2 = head;             //左边第一个节点
+		    bool ret = true;          //返回值
+		
+		    while (NULL != head1 && NULL != head2)     //判断是否是回文链表
+		    {
+		        if (head1->_data != head2->_data)
+		        {
+		            ret = false;
+		            break;
+		        }
+		        head1 = head1->_next;
+		        head2 = head2->_next;
+		    }
+		
+		    head1 = head3->_next;
+		    head3->_next = NULL;             //最后一个节点指向NULL
+		    while (NULL != head1)            //恢复原链表结构
+		    {
+		        head2 = head1;
+		        head1 = head1->_next;
+		        head2->_next = head3;
+		        head3 = head2;
+		    }
+		
+		    return ret;
+		}
 		
 		
+		int main()
+		{
+		    ListNode* head = NULL;
+		    Push_Back(head, 1);
+		    Push_Back(head, 2);
+		    Push_Back(head, 3);
+		    Push_Back(head, 2);
+		    Push_Back(head, 1);
+		
+		    PrintList(head);
+		
+		    cout << JudgePalindromeList(head) << endl;
+		
+		    PrintList(head);
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		    system("pause");
+		    return 0;
+		}
 		
 		
 		
 ```
 
-
-
-		
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 
 
